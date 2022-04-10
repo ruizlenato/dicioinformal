@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 link = "https://www.dicionarioinformal.com.br/"
 
 timeout = httpx.Timeout(20)
-http = httpx.Client(http2=True, timeout=timeout)
+http = httpx.Client(http2=True, timeout=timeout, follow_redirects=True)
 
 
 def definicao(query):
