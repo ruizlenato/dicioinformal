@@ -11,19 +11,19 @@ def definicao(query):
     r = http.get(link + query)
     soup = BeautifulSoup(r.text, "html.parser")
     tit = soup.find_all("h3", "di-blue")
-    if tit == None:
+    if tit is None:
         tit = soup.find_all("h3", "di-blue-link")
     title = []
     for i in tit:
         a = i.find("a")
         if a != None:
             title.append(a.get("title"))
-    if a == None:
+    if a is None:
         tit = soup.find_all("h3", "di-blue-link")
     for i in tit:
         a = i.find("a")
         if a != None:
-            title.append("você quiz dizer: {}".format(a.get("title")))
+            title.append(f'você quiz dizer: {a.get("title")}')
     ti = soup.find_all("p", "text-justify")
     tit = []
     for i in ti:
@@ -62,43 +62,37 @@ def definicao(query):
 
 
 def sinonimos(query):
-    r = http.get(link + "sinonimos/" + query)
+    r = http.get(f"{link}sinonimos/{query}")
     soup = BeautifulSoup(r.text, "html.parser")
     a = soup.find("p", "text-justify")
-    result = []
-    for i in a.find_all("a"):
-        result.append(i.get_text())
+    result = [i.get_text() for i in a.find_all("a")]
     a = soup.find("h4", "link_cinza").get_text()
     result = {"title": a, "sinonimos": result}
     return dict(results=result)
 
 
 def antonimos(query):
-    r = http.get(link + "antonimos/" + query)
+    r = http.get(f"{link}antonimos/{query}")
     soup = BeautifulSoup(r.text, "html.parser")
     a = soup.find("p", "text-justify")
-    result = []
-    for i in a.find_all("a"):
-        result.append(i.get_text())
+    result = [i.get_text() for i in a.find_all("a")]
     a = soup.find("h4", "link_cinza").get_text()
     result = {"title": a, "antonimos": result}
     return dict(results=result)
 
 
 def relacionadas(query):
-    r = http.get(link + "relacionadas/" + query)
+    r = http.get(f"{link}relacionadas/{query}")
     soup = BeautifulSoup(r.text, "html.parser")
     a = soup.find("p", "text-justify")
-    result = []
-    for i in a.find_all("a"):
-        result.append(i.get_text())
+    result = [i.get_text() for i in a.find_all("a")]
     a = soup.find("h4", "link_cinza").get_text()
     result = {"title": a, "relacionadas": result}
     return dict(results=result)
 
 
 def rimas(query):
-    r = http.get(link + "rimas/" + query)
+    r = http.get(f"{link}rimas/{query}")
     soup = BeautifulSoup(r.text, "html.parser")
     a = soup.find_all("a")
     b = []
